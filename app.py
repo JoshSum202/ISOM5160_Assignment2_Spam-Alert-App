@@ -48,6 +48,7 @@ SECRET PHRASE (must appear on the app page): ISOM5160-HW2-SMS
 #
 # =============================================================================
 
+import pandas as pd
 import streamlit as st
 from datasets import load_dataset
 from transformers import pipeline
@@ -129,6 +130,8 @@ def main():
     st.title("ISOM5160")
     st.write("Homework 2 — SMS Spam / Smishing Alert")
     # STUDENT: also show Student ID and COURSE_SECRET on the page.
+    st.write(f"Student ID: {STUDENT_ID}")
+    st.write(f"Course secret: {COURSE_SECRET}")
 
     # Use a Hugging Face fine-grained token from Streamlit Cloud secrets
     # if one is set. Do not put the token in this file.
@@ -137,7 +140,7 @@ def main():
         hf_token = st.secrets["HF_TOKEN"]
 
     # STUDENT: load the model with load_model(hf_token)
-    classifier = None
+    classifier = load_model(hf_token)
 
     alert_text = st.text_area(
         "SMS message",
@@ -179,13 +182,14 @@ def main():
 
         # Create a simple results table
         results_df = pd.DataFrame({
-            "Text (short)": [text[:50] + "..." if len(text) > 50 else text for text in texts],
+            "#": range(1, len(texts) + 1),
+            "Text (short)": [t[:50] + "..." if len(t) > 50 else t for t in texts],
             "Ground truth": true_labels,
             "Prediction": pred_labels,
-            "Confidence": confidences
+            "Confidence": [round(c, 4) for c in confidences],
         })
         results_df["Match"] = results_df["Ground truth"] == results_df["Prediction"]
-        st.dataframe(results_df)
+        st.dataframe(results_df, hide_index=True)
 
 if __name__ == "__main__":
     main()
