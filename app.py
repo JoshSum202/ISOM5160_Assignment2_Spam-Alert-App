@@ -36,7 +36,7 @@ SECRET PHRASE (must appear on the app page): ISOM5160-HW2-SMS
 # Q1. Who is the primary business user of this app?
 #     (one short sentence; e.g., an employee or a security analyst reviewing
 #      inbound SMS for spam or scam-like messages)
-#   YOUR_ANSWER: 
+#   YOUR_ANSWER: Security analysts or employees receiving inbound SMS messages and inspecting them for spam or scam messages. 
 #
 # Q2. Look at the accuracy from your 100-sample test. Is accuracy enough
 #     for a business to rely on this app, and why or why not?
@@ -44,8 +44,9 @@ SECRET PHRASE (must appear on the app page): ISOM5160-HW2-SMS
 #     YOUR app run. Comment on the cost of a false positive (blocking a
 #     legitimate SMS, such as a bank or one-time code message) versus a
 #     false negative (missing a spam or scam-like message).
-#   YOUR_ANSWER:
-#
+#   YOUR_ANSWER: My run score is 0.99 on the 100 samples, which is useful for triage but not enough to rely on alone for a business. 
+#   Cost of false postive is that it could block a legitimate message and disrupt business operations, for example, a customer trying to reach out through SMS. 
+#   Cost of false negative is that it could let scam through and cause potential financial loss, therefore, a human should review flagged messages with the assistance of this app.
 # =============================================================================
 
 import pandas as pd
